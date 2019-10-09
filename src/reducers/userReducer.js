@@ -12,7 +12,10 @@ let userReducer  = (state, action) =>{
             ...state,
             name: action.payload.name,
             email: action.payload.email,
-            password: action.payload.password
+            password: action.payload.password,
+            gender: action.payload.gender,
+            age: action.payload.age,
+            region: action.payload.region
         }
 
         case 'LOGIN_USER':
