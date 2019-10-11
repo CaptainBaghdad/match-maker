@@ -25,6 +25,13 @@ let userReducer  = (state, action) =>{
             isLoggedIn: true,
             token: action.payload.token
         }
+
+        case 'PROFILE_PIC':
+        console.log(`This is from the reducer ${action.payload}`)
+        return {
+            ...state,
+            profilePic: action.payload
+        }
        
         //console.log(`ANS ANS ANS ${Object.keys(ans)}`)
      
