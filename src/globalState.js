@@ -6,7 +6,8 @@ let initState = {
     password: '',
     gender: '',
     age: '',
-    region: ''
+    region: '',
+    profilePic: ''
 
 }
 

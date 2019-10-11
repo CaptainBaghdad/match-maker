@@ -236,6 +236,8 @@ let RegisterUserComponent = (props) =>{
                   id="password"
                   autoComplete="current-password"
                />
+               <br />
+               <h4>Select Gender</h4>
                Male <input type="radio" name="gender" value="male" />
                Female <input type="radio" name="gender" value="female" />
 
@@ -255,6 +257,8 @@ let RegisterUserComponent = (props) =>{
         <InputLabel htmlFor="region"> Select State</InputLabel>
       {renderSelect()}
       </FormControl>
+      <br />
+      <br />
                 <Button
                   type="submit"
                   fullWidth
