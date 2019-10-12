@@ -1,14 +1,36 @@
 import React from 'react';
 import { FormControl } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import {useReducer} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import userReducer from '../../reducers/userReducer';
+import Avatar from '@material-ui/core/Avatar';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import initState from '../../globalState';
 
-
+const useStyles = makeStyles({
+   jumbo:{
+       height: 350,
+       width: 1444,
+       background: 'grey',
+       position: 'relative',
+       top: 0,
+       left: 0
+   },
+    bigAvatar: {
+      margin: 10,
+      width: 200,
+      height: 200,
+      position: 'absolute',
+      top: 200,
+      left: 30
+    },
+  });
 
 let ImageHolder = (props) =>{
-    let [globalObject, dispatch] = useReducer(userReducer, initState)
+    let [globalObject, dispatch] = useReducer(userReducer, initState);
+    const classes = useStyles();
     let handleSubmit = (e) =>{
         e.preventDefault();
         let fileData = new FormData();
@@ -30,9 +52,11 @@ let ImageHolder = (props) =>{
          .then((data)=>{
            // console.log(`TF TF TF ${data}`)
            //globalObject.profilePic = 
+           console.log(`This is the mofo data ${Object.keys(data)}`)
              dispatch({type:'PROFILE_PIC', payload: ans[0].name})
-            
+            let fileHolder = document.getElementById("file-holder");
              //globalObject.profilePic = data.ans 
+             fileHolder.innerHTML = ""
 
              console.log(`We got the response ${globalObject.profilePic}`)
     
@@ -48,7 +72,10 @@ let ImageHolder = (props) =>{
 
 
     return (
-        <div>
+        <Grid container spacing={2}>
+        <Grid item xs={6} lg={3} md={4} sm={5} >
+        <div >
+        <div id="file-holder">
         <h2>select a profile picture</h2> name {globalObject.name}
         <form onSubmit={handleSubmit}
         
@@ -64,15 +91,36 @@ let ImageHolder = (props) =>{
             </Button>
 
         </form>
-
-        
-            <img src={`http://localhost:4677/images/${globalObject.profilePic}`} 
-            alt={`${globalObject.profilePic}`}
-            crossOrigin="anonymous"
-            /> 
-        
-
         </div>
+        { globalObject.profilePic !== "" ? 
+        <Grid container spacing={2}>
+         <Grid item xs={10} lg={10} md={10} lg={10}>
+         <div className={classes.jumbo}>
+        <AddCircleIcon ></AddCircleIcon>
+         </div>
+         </Grid>
+        
+        <Grid item xs={6} lg={3} md={4} sm={5} >
+        <Avatar src={`http://localhost:4677/images/${globalObject.profilePic}`} 
+        className={classes.bigAvatar} 
+        
+        /> 
+        </Grid>
+       
+
+        </Grid>
+        
+        :
+
+        ""}
+        </div>
+        </Grid>
+        </Grid>
+        
+           
+            
+            
+       
     )
 
 
