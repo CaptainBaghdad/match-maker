@@ -32,6 +32,12 @@ let userReducer  = (state, action) =>{
             ...state,
             profilePic: action.payload
         }
+
+        case 'BACKGROUND_IMAGE':
+        return {
+            ...state,
+            backgroundPic: action.payload
+        }
        
         //console.log(`ANS ANS ANS ${Object.keys(ans)}`)
      
