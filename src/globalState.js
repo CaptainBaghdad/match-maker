@@ -7,7 +7,8 @@ let initState = {
     gender: '',
     age: '',
     region: '',
-    profilePic: ''
+    profilePic: '',
+    backgroundPic: ''
 
 }
 

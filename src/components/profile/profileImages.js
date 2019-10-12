@@ -51,6 +51,10 @@ const useStyles = makeStyles({
           width: 30,
           height: 30
 
+      },
+      jumboImage: {
+        height: 350,
+        width: 1444
       }
   });
 
@@ -87,6 +91,8 @@ let ImageHolder = (props) =>{
      
      }
      let [open, setOpen] = useState(false);
+    
+        
 
      let handleJumboImage = (e) =>{
         setOpen(true)
@@ -96,6 +102,7 @@ let ImageHolder = (props) =>{
      }
 
      let sendBackgroundImage = (e) =>{
+         e.preventDefault();
          let image = document.getElementById('main-background-image').files[0];
          //console.log(`This is the background function ${image}`)
          let backgroundData = new FormData();
@@ -110,7 +117,13 @@ let ImageHolder = (props) =>{
          .then(res => res.json())
 
          .then((data)=>{
-             console.log(`I HAVE IT>>> ${Object.keys(data)}`)
+            setOpen(false)
+     
+
+             console.log(`I HAVE IT>>> ${data.backgroundPic}`)
+             dispatch({type:'BACKGROUND_IMAGE', payload: data.backgroundPic})
+             let backgroundHolder = document.getElementById('backgroundHolder')
+             backgroundHolder.innerHTML = "";
 
          })
 
@@ -151,6 +164,7 @@ let ImageHolder = (props) =>{
         <Grid container spacing={2}>
          <Grid item xs={10} lg={10} md={10} lg={10}>
          <div className={classes.jumbo}>
+         <div id="backgroundHolder">
          <Tooltip title="Add Background Photo" aria-label="add">
         <Fab color="primary" className={classes.circle}>
           <AddIcon onClick={handleJumboImage}  />
@@ -160,7 +174,7 @@ let ImageHolder = (props) =>{
        aria-labelledby="simple-modal-title"
        aria-describedby="simple-modal-description"
        open={open}
-       //onClose={handleClose}
+      
        
        >
 
@@ -181,6 +195,11 @@ let ImageHolder = (props) =>{
         </div>
            
            </Modal>
+           </div>
+           <img src={`http://localhost:4677/images/backgroundImages/${globalObject.backgroundPic}`} 
+           className={classes.jumboImage}
+           alt="             "
+           />
          </div>
          </Grid>
         
