@@ -38,6 +38,12 @@ let userReducer  = (state, action) =>{
             ...state,
             backgroundPic: action.payload
         }
+
+        case 'SET_BIO':
+        return {
+            ...state, 
+            bio: action.payload
+        }
        
         //console.log(`ANS ANS ANS ${Object.keys(ans)}`)
      

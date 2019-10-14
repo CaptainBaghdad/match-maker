@@ -8,7 +8,8 @@ let initState = {
     age: '',
     region: '',
     profilePic: '',
-    backgroundPic: ''
+    backgroundPic: '',
+    bio: ''
 
 }
 
