@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import BioComponent from './addBioComponent/BioComponent';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,16 +42,7 @@ const handleListItemClick = (event, index) => {
         <div className={classes.SideHolder}>
         <div className={classes.root}>
       <List component="nav" aria-label="main mailbox folders">
-        <ListItem
-          button
-          selected={selectedIndex === 0}
-          onClick={event => handleListItemClick(event, 0)}
-        >
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </ListItem>
+        <BioComponent />
         <ListItem
           button
           selected={selectedIndex === 1}
