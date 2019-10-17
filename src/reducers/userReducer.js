@@ -23,7 +23,9 @@ let userReducer  = (state, action) =>{
         return {
             ...state,
             isLoggedIn: true,
-            token: action.payload.token
+            token: action.payload.token,
+            name: action.payload.foundUser.name,
+            profilePic: action.payload.foundUser.profilePic
         }
 
         case 'PROFILE_PIC':

@@ -65,15 +65,16 @@ let LoginComponent  = () =>{
         e.preventDefault();
         
         let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value
+        let password = document.getElementById('password').value;
+      console.log(`THE FUCCCCKKKK ${email}`)
         if(email !== undefined || email !== ''){
-
+          let loginData = new FormData();
+          loginData.append('email', email);
+          loginData.append('password', password);
             fetch('http://localhost:4677/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({email: email, password: password})
+                
+                body:loginData
             })
             .then(res => res.json())
             .then(data =>{
@@ -84,8 +85,10 @@ let LoginComponent  = () =>{
     
                 }
                 if(!data.error){
+                  console.log(`OBEJCT BIOOTCH ${Object.keys(data)}`)
                     dispatch({type:'LOGIN_USER', payload: data})
                    localStorage.setItem('token', data.token)
+                   localStorage.setItem('name', data.foundUser.name)
                    window.location = '/profile';
                 }
 
