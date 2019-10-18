@@ -2,6 +2,7 @@ import React from 'react';
 import ImageHolder from './profileImages';
 import DefaultProfileComponent from './default/defaultProfile';
 import DefaultBackgroundComponent from './default/defaultBackground';
+import ProfileImageComponent from './profileImages';
 
 import LeftSideComponent from './leftSide/leftsideComponent';
 
@@ -43,13 +44,11 @@ function rand() {
 
 
 const useStyles = makeStyles({
-   jumbo:{
-       height: 350,
-       width: '100%',
-       background: 'grey',
-       position: 'relative',
-       top: 0,
-       left: 0
+   cardHolder:{
+       
+       position: 'absolute',
+       top: 20,
+       left: 30
    },
     bigAvatar: {
       margin: 10,
@@ -80,7 +79,7 @@ const useStyles = makeStyles({
       },
       jumboImage: {
         height: 350,
-        width: '100%',
+        width: '66%',
         top: 5
       }
   });
@@ -226,47 +225,19 @@ let DashBoardComponent = () =>{
 
     return (
         <div>
-            
-        {globalObject.profilePic !== "" ? (
+            <Grid container className={classes.cardHolder}>
+            <Grid item xs={8} sm={6} md={4} lg={4}>
+        {globalObject.profilePic !== "" ? (<ProfileImageComponent />) : 
                    
-            
-                    <Avatar src={`http://localhost:4677/images/${globalObject.profilePic}`} 
-                    className={classes.bigAvatar} alt="no pic"
-                     
-                    /> 
-                  
-                   
-                   ) : 
-                   
-                   ( <DefaultProfileComponent />)
+        ( <DefaultProfileComponent />)
                   
                    
                    
                    }
-
-                   { globalObject.backgroundPic !== "" ?
-                   ( <div >
-                    <img 
-                    src={`http://localhost:4677/images/backgroundImages/${globalObject.backgroundPic}`} 
-                    alt="there is a problem" 
-                    className={classes.jumboImage}
-                    />
-                
-                    </div>)
-                   :
-
-                   (<DefaultBackgroundComponent />)
-
-                   }
-
-                   
-
-               
-        
-        
-       
+        </Grid>           
+        </Grid>           
         </div>
-    )
+        )
 }
 
 

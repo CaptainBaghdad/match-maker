@@ -46,6 +46,17 @@ let userReducer  = (state, action) =>{
             ...state, 
             bio: action.payload
         }
+
+        case 'LOAD_CARD':
+        return {
+            ...state,
+            name: action.payload.name,
+            age: action.payload.age,
+            region: action.payload.region,
+            bio: action.payload.bio,
+            profilePic: action.payload.profilePic,
+            backgroundPic: action.payload.backgroundPic
+        }
        
         //console.log(`ANS ANS ANS ${Object.keys(ans)}`)
      

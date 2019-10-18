@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
     jumbo:{
         height: 350,
-        width: '100%',
+        width: '66%',
         background: 'grey',
         position: 'relative',
         top: 0,
@@ -38,8 +38,9 @@ const useStyles = makeStyles({
  
        },
        jumboImage: {
+           position: 'relative',
          height: 350,
-         width: '100%',
+         width: '66%',
          top: 5
        }
    });
@@ -48,7 +49,7 @@ const useStyles = makeStyles({
 let DefaultBackgroundComponent = () =>{
     const classes = useStyles();
     return (
-        <div > 
+        <div className={classes.jumbo}> 
         <img 
         src={`http://localhost:4677/images/backgroundImages/defaultBackgroundProfile.jpg`} 
         alt="there is a problem"
