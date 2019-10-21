@@ -62,6 +62,11 @@ let userReducer  = (state, action) =>{
             backgroundPic: action.payload.backgroundPic
         }
        
+        case 'GET_ALL_USERS':
+        return {
+            ...state,
+            allUsers: action.payload
+        }
         //console.log(`ANS ANS ANS ${Object.keys(ans)}`)
      
         default:

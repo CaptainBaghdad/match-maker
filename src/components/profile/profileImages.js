@@ -114,6 +114,10 @@ let ProfileImageComponent = (props) =>{
        
        
     },[])
+
+    const changeProfilePic = () =>{
+      alert(`Got emm all hooked up`);
+    }
     
     
     return (
@@ -127,8 +131,8 @@ let ProfileImageComponent = (props) =>{
                 />
             }
             action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
+              <IconButton aria-label="settings" >
+                <MoreVertIcon  onClick={changeProfilePic}/>
               </IconButton>
             }
             title={globalObject.name}
