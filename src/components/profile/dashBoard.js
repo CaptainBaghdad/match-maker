@@ -3,6 +3,7 @@ import ImageHolder from './profileImages';
 import DefaultProfileComponent from './default/defaultProfile';
 import DefaultBackgroundComponent from './default/defaultBackground';
 import ProfileImageComponent from './profileImages';
+import Container from '@material-ui/core/Container';
 
 import LeftSideComponent from './leftSide/leftsideComponent';
 
@@ -24,6 +25,8 @@ import {Link} from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import initState from '../../globalState';
 import axios  from 'axios';
+import HeaderComponent from '../header/headerComponent';
+import UsersHolderComponent from '../users/usersHolder'
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -44,11 +47,22 @@ function rand() {
 
 
 const useStyles = makeStyles({
+    mainHolder: {
+        background: 'red'
+    },
+
+    usersHolder: {
+        background: 'blue'
+    },
+    footer:{
+        background:'yellow'
+    },
    cardHolder:{
        
        position: 'absolute',
-       top: 20,
-       left: 30
+       top: 90,
+       left: 30,
+      
    },
     bigAvatar: {
       margin: 10,
@@ -206,27 +220,30 @@ let DashBoardComponent = () =>{
            if(data.profilePic != "" || data.profilePic != null || data.profilePic.length != 0){
                 console.log(`There is no pic returned`)
             setFoundPic(true)
-                dispatch({type:'PROFILE_PIC', payload: data.profilePic})
+                dispatch({type:'PROFILE_PIC', payload: data})
             }
 
             if(data.backgroundPic !== "" || data.backgroundPic !== null){
                 console.log(`MOFO THIS IS THE BACKGROUND ${data.backgroundPic}`)
                 setBackgroundPic(true);
-                dispatch({type:'BACKGROUND_IMAGE', payload: data.backgroundPic})
+                dispatch({type:'BACKGROUND_IMAGE', payload: data})
             }
             console.log(`The fucking return from the hook is ${foundPic}`);
             //return foundPic     
         })
        
-        return foundPic
+       
        
     },[])
     
 
     return (
         <div>
-            <Grid container className={classes.cardHolder}>
+            <HeaderComponent name={globalObject.name}/>
+            <Container maxWidth="lg" className={classes.mainHolder}>
+            <Grid container spacing={3}>
             <Grid item xs={8} sm={6} md={4} lg={4}>
+           
         {globalObject.profilePic !== "" ? (<ProfileImageComponent />) : 
                    
         ( <DefaultProfileComponent />)
@@ -234,8 +251,16 @@ let DashBoardComponent = () =>{
                    
                    
                    }
-        </Grid>           
-        </Grid>           
+                   </Grid>
+                <Grid item xs={4} sm={6} md={8} lg={8} className={classes.usersHolder}>
+                   <UsersHolderComponent />
+                   </Grid>
+
+                   <Grid item xs={4} sm={6} md={8} lg={8} className={classes.footer}>
+
+                   </Grid> 
+                   </Grid>
+                  </Container>
         </div>
         )
 }

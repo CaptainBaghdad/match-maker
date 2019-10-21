@@ -80,7 +80,7 @@ let handleSubmit = (e) =>{
     })
   .then(res => res.json())
   .then(data => {
-    console.log(`this is the response from the promise ${data.bio}`)
+    console.log(`this is the response from the promise in the bio component ${data.bio}`)
     dispatch({type: 'SET_BIO', payload: data.bio})
     setOpen(false)
   })

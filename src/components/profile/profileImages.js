@@ -19,6 +19,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import userReducer from '../../reducers/userReducer';
 import initState from '../../globalState';
 import AddBioComponent from './bioComponent';
+import EditBioComponent from './editBio';
 
 const useStyles = makeStyles(theme => ({
     jumbo:{
@@ -140,7 +141,7 @@ let ProfileImageComponent = (props) =>{
           />
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
-            {globalObject.bio == null ? (<AddBioComponent />) : globalObject.bio}
+          {globalObject.bio == null ? (<AddBioComponent />) : (<div><EditBioComponent bio={globalObject.bio}/></div>) }
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
