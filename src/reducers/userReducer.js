@@ -32,13 +32,17 @@ let userReducer  = (state, action) =>{
         console.log(`This is from the reducer ${action.payload}`)
         return {
             ...state,
-            profilePic: action.payload
+            profilePic: action.payload.profilePic,
+            name: action.payload.name
+
         }
 
         case 'BACKGROUND_IMAGE':
         return {
             ...state,
-            backgroundPic: action.payload
+            backgroundPic: action.payload.backgroundPic,
+            name: action.payload.name
+
         }
 
         case 'SET_BIO':
