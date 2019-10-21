@@ -112,6 +112,10 @@ const handleExpandClick = () => {
    
 },[])
 
+const changeProfilePic = () =>{
+  alert(`Got emm all hooked up`);
+}
+
 
 return (
     <div>
@@ -125,7 +129,7 @@ return (
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <MoreVertIcon onClick={changeProfilePic}/>
           </IconButton>
         }
         title={globalObject.name}

@@ -9,7 +9,8 @@ let initState = {
     region: '',
     profilePic: '',
     backgroundPic: '',
-    bio: ''
+    bio: '',
+    allUsers: []
 
 }
 
