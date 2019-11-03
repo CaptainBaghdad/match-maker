@@ -20,6 +20,13 @@ import userReducer from '../../reducers/userReducer';
 import initState from '../../globalState';
 import AddBioComponent from './bioComponent';
 import EditBioComponent from './editBio';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+//import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import {Link} from 'react-router-dom';
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles(theme => ({
     jumbo:{
@@ -83,13 +90,29 @@ const useStyles = makeStyles(theme => ({
    }));
 
 
+   function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+  
+  function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
 
 let ProfileImageComponent = (props) =>{
     let [globalObject, dispatch] = useReducer(userReducer, initState);
     const classes = useStyles();
     let [hasProfile, setProfile] = useState(false);
     const [expanded, setExpanded] = React.useState(false);
-    
+    const [open, setOpen] = React.useState(false);
+    const [modalStyle] = React.useState(getModalStyle);
     const handleExpandClick = () => {
         setExpanded(!expanded);
       };
@@ -115,8 +138,37 @@ let ProfileImageComponent = (props) =>{
        
     },[])
 
-    const changeProfilePic = () =>{
-      alert(`Got emm all hooked up`);
+    const handleSubmit = () =>{
+     // alert(`Got emm all hooked up`);
+     let profileHolder = new FormData();
+     let profilePic = document.getElementById('profilePic').files[0]
+     if(localStorage.getItem('name') !== '' || localStorage.getItem('name') !== undefined){
+      let name = localStorage.getItem('name'); 
+      profileHolder.append('name', name);
+       profileHolder.append('profilePic', profilePic);
+       fetch('http://localhost:4677/update-profile', {method: 'POST', body:profileHolder})
+      .then(res => res.json())
+      .then(data =>{
+        
+      })
+     }
+
+     alert('There was a problem');
+     //console.log(`This is the submit from the handleSubmit in the component `)
+
+
+
+
+    }
+
+
+
+    const handleOpen = () =>{
+      setOpen(true)
+    }
+
+    const handleClose  = () =>{
+      setOpen(false)
     }
     
     
@@ -132,7 +184,28 @@ let ProfileImageComponent = (props) =>{
             }
             action={
               <IconButton aria-label="settings" >
-                <MoreVertIcon  onClick={changeProfilePic}/>
+                <Tooltip title='Change Profile' >
+            <AddIcon onClick={handleOpen} id="changePic"/>
+           
+            </Tooltip>   
+            <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={open}
+        onClose={handleClose}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <h2 id="simple-modal-title">Select Picture</h2>
+          <p id="simple-modal-description">
+          <form onSubmit={handleSubmit}>
+          <input type="file" name="profilePic" id="profilePic" />
+          <input type="submit" value='submit' />
+
+          </form>
+          </p>
+         
+        </div>
+      </Modal>
               </IconButton>
             }
             title={globalObject.name}
