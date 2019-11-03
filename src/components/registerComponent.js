@@ -149,19 +149,25 @@ let RegisterUserComponent = (props) =>{
     let handleSubmit = (e) =>{
         e.preventDefault(); 
         let gender = getRadioValue();
+        let name = document.getElementById('name').value
+        let email = document.getElementById('email').value
+        let password =  document.getElementById('password').value
+           //gender: gender,
+        let age = document.getElementById('age').value
+        let region = document.getElementById('region').value  
+        let registerData = new FormData();
+        registerData.append('name', name)  
+        registerData.append('email', email)  
+        registerData.append('password', password)  
+        registerData.append('age', age)  
+        registerData.append('region', region)
+        registerData.append('gender', gender)    
         fetch('http://localhost:4677/register', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify( {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-            gender: gender,
-            age: document.getElementById('age').value,
-            region: document.getElementById('region').value    
-        })
+       
+        body: registerData
+            
+      
     
     })
     .then(res => res.json())

@@ -19,6 +19,45 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import userReducer from '../../../reducers/userReducer';
 import initState from '../../../globalState';
 import AddBioComponent from '../bioComponent';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+//import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import {Link} from 'react-router-dom';
+import Modal from '@material-ui/core/Modal';
+
+const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
+
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles(theme => ({
     jumbo:{
@@ -86,15 +125,26 @@ let [globalObject, dispatch] = useReducer(userReducer, initState);
 const classes = useStyles();
 let [hasProfile, setProfile] = useState(false);
 const [expanded, setExpanded] = React.useState(false);
+//const [open, setOpen] = React.useState(false);
+const anchorRef = React.useRef(null);
+const [selectedIndex, setSelectedIndex] = React.useState(1);
+const [modalStyle] = React.useState(getModalStyle);
+const [open, setOpen] = React.useState(false);
 
-const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+const handleOpen = () => {
+  setOpen(true);
+};
 
+const handleClose = () => {
+  setOpen(false)
+}
+  
   useEffect(() =>{
    // console.log('USE EFFECT FIRED')
     let name = localStorage.getItem('name');
     let findName = new FormData();
+    let picHolder = document.getElementById('picHolder');
+    //picHolder.style.display = 'none';
     findName.append('name', name)
     fetch('http://localhost:4677/get-user', {
         method: "POST",
@@ -113,7 +163,30 @@ const handleExpandClick = () => {
 },[])
 
 const changeProfilePic = () =>{
-  alert(`Got emm all hooked up`);
+  let picHolder = document.getElementById('picHolder');
+  //picHolder.style.display = 'inline-block';
+  let moreVert = document.getElementById('moreVert');
+ // moreVert.style.display = 'none';
+
+}
+
+const handleSubmit = (e) =>{
+  let name  = globalObject.name;
+  let profilePic = document.getElementById('profilePic').files[0];
+  let updatePicData = new FormData();
+  updatePicData.append('name', name);
+  updatePicData.append('profilePic', profilePic)
+  console.log(`This is the new FIRE From the add Pic ${profilePic}`)
+  fetch('http://localhost:4677/update-profile',{method: 'POST', body: updatePicData})
+  .then(res => res.json())
+  .then(data =>{
+    console(`we jave the data ${Object.values(data)}`)
+  })
+
+}
+
+const handleExpandClick = () =>{
+
 }
 
 
@@ -129,7 +202,32 @@ return (
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon onClick={changeProfilePic}/>
+          <Tooltip title='Add Profile' >
+            <AddIcon onClick={handleOpen} id="moreVert"/>
+           
+            </Tooltip>   
+            <div id="picHolder">
+
+            <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={open}
+        onClose={handleClose}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <h2 id="simple-modal-title">Select Picture</h2>
+          <p id="simple-modal-description">
+          <form onSubmit={handleSubmit}>
+          <input type="file" name="profilePic" id="profilePic" />
+          <input type="submit" value='submit' />
+
+          </form>
+          </p>
+         
+        </div>
+      </Modal>
+
+            </div>
           </IconButton>
         }
         title={globalObject.name}
